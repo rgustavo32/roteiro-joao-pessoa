@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Roteiro João Pessoa (24–30/09) + Recife</title>
 <style>
-  :root{--bg:#fbfaf7;--fg:#23201c;--accent:#0a7d5a;--muted:#6b6357;--line:#e6e0d6;}
+  :root{--bg:#fbfaf7;--fg:#23201c;--accent:#0a7d5a;--muted:#6b6357;--line:#e6e0d6;--tide:#0a6ebd;}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);
        font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -27,10 +27,26 @@
   li{margin:.25em 0}
   .updated{color:var(--muted);font-size:.85rem;margin-bottom:1em}
   img{max-width:100%}
+  /* tide widget */
+  #tidebox{background:#eaf4fb;border:1px solid #bcdff5;border-radius:12px;padding:14px 14px 6px;margin:0 0 18px}
+  #tidebox h2{border:none;color:var(--tide);margin:.1em 0 .5em;font-size:1.15rem;padding:0}
+  .tcards{display:flex;gap:10px;flex-wrap:wrap}
+  .tcard{flex:1 1 240px;background:#fff;border:1px solid #cfe6f6;border-radius:10px;padding:10px 12px}
+  .tcard .lbl{font-weight:700;color:var(--tide);font-size:.9rem;text-transform:uppercase;letter-spacing:.03em}
+  .tcard .low{font-size:1.5rem;font-weight:800;margin:.15em 0}
+  .tcard .low small{font-size:.8rem;font-weight:600;color:var(--muted)}
+  .tcard .evs{font-size:.82rem;color:#333;margin-top:.3em}
+  .tcard .best{display:inline-block;margin-top:.4em;font-size:.78rem;background:#e6f7ee;color:#0a7d5a;border-radius:6px;padding:2px 7px;font-weight:700}
+  .tnote{font-size:.8rem;color:var(--muted);margin:.6em 2px 2px}
 </style>
 </head>
 <body>
 <div class="wrap">
+<div id="tidebox">
+  <h2>🌊 Marés hoje e amanhã — Cabedelo/JP</h2>
+  <div id="tcards" class="tcards"></div>
+  <p class="tnote">Fonte: Marinha do Brasil (CHM) · Porto de Cabedelo. Baixa-mar = janela das piscinas naturais (sair de barco ~1h antes). Atualiza sozinho pela data do celular.</p>
+</div>
 <div id="content">Carregando roteiro…</div>
 <p class="updated">Página pública · atualizada em 21/09/2026</p>
 </div>
@@ -64,6 +80,27 @@ A Fabi ama fazer **snorkel** nelas: *"chegou minha parte preferida que é fazer 
 **Estimativa de tempo por passeio de piscina:** Picãozinho = **meio período (~3h no total com deslocamento)**; Seixas = **meio período longo (~4h)**; Areia Vermelha = **dia inteiro**.
 
 > 🔴 **AÇÃO CRÍTICA:** antes de fechar a grade, ligue para a **Nosso Tour / Nostur** e peça os **horários de maré baixa dos dias 24–30/09**. As piscinas naturais dependem 100% disso — a grade abaixo já reserva os melhores encaixes, mas o dia exato de cada piscina pode precisar trocar conforme a maré.
+
+---
+
+## 🌊 1B. TÁBUA DE MARÉS — seus dias (fonte oficial: Marinha do Brasil / Porto de Cabedelo)
+
+> Maré é **previsão astronômica fixa** — estes horários dos dias 24/09–01/10 já estão certos e **não mudam**. Estação de referência de toda a região de João Pessoa = **Porto de Cabedelo (CHM/DHN – Marinha)**. Piscinas naturais = ir na **baixa-mar do dia** (maré mais recuada).
+>
+> ⭐ **Melhores dias para piscinas naturais: 27 e 28/09** (e 26) — **Lua Cheia = maré de sizígia**, baixa-mar chega a **0,18 m** (recifes bem expostos, água mais cristalina).
+
+| Dia | ⭐ Baixa-mar diurna (janela piscina) | Preamar (maré alta) | Baixa-mar noturna | Sol |
+|-----|------|---------|-----|-----|
+| Qui 24/09 | **08:35** (0,4 m) | 02:24 · 14:42 (2,3 m) | 20:49 | 05:06–17:16 |
+| Sex 25/09 | **09:08** (0,3 m) | 02:57 · 15:13 (2,4 m) | 21:20 | 05:06–17:15 |
+| Sáb 26/09 | **09:41** (0,3 m) | 03:30 · 15:45 (2,5 m) | 21:53 | 05:05–17:15 |
+| Dom 27/09 ⭐ | **10:32** (0,18 m) | 04:29 · 16:47 (2,5 m) | 22:51 | 05:05–17:15 |
+| Seg 28/09 ⭐ | **11:06** (0,21 m) | 05:04 · 17:23 (2,5 m) | 23:25 | 05:04–17:15 |
+| Ter 29/09 | **11:44** (0,30 m) | 05:44 · 18:02 (2,4 m) | — | 05:04–17:15 |
+| Qua 30/09 | **12:21** (0,44 m) | 06:25 · 18:46 (2,3 m) | 00:06 | 05:03–17:15 |
+| Qui 01/10 (Recife) | 13:08 (0,62 m) | 07:16 · 19:36 (2,2 m) | 00:55 | 05:03–17:15 |
+
+**Como usar:** o barco deve **chegar à piscina perto da baixa-mar**. Saia da orla ~**1h–1h30 antes** do horário da baixa-mar do dia. Ex.: dia 27 (baixa 10:32) → sair ~9h. Fonte reempacotada (fácil no celular): `tabuademares.com/br/paraiba/cabedelo`.
 
 ---
 
@@ -237,38 +274,38 @@ Outras igrejas históricas da região (citadas nos passeios):
 
 ## 🗓️ 10. GRADE SUGERIDA — 24 a 30/09 (com várias opções)
 
-> Datas 2026: **24=sáb · 25=dom · 26=seg · 27=ter · 28=qua · 29=qui · 30=sex.**
-> ⚠️ **Os dias de piscina natural podem trocar conforme a maré baixa** — confirme com a Nosso Tour e ajuste. A grade foi montada tentando encaixar o máximo, com fins de semana reservados p/ vida noturna.
+> Datas 2026: **24=QUI · 25=SEX · 26=SÁB · 27=DOM · 28=SEG · 29=TER · 30=QUA.** (Oct 1 = qui, em Recife.)
+> ✅ A grade já está **alinhada com a tábua de marés** acima: piscinas caem nos dias de baixa-mar mais forte (26–28/09, Lua Cheia). Confirme só os horários de saída com a Nosso Tour.
 
-### 📅 SÁB 24/09 — Chegada leve + orla + noite animada
+### 📅 QUI 24/09 — Chegada leve + orla + noite (baixa-mar 08:35)
 - **Manhã:** relaxar, reconhecer a orla de **Cabo Branco** (lado sul, tranquilo). Coco na praia, almoço beira-mar (Corais/Gulliver p/ camarão).
 - **Tarde:** **Farol do Cabo Branco + Estação Cabo Branco (Mirante 360°) + Bosque dos Sonhos + Ponta do Seixas** (ponto mais oriental). Pôr do sol no **Mirante do Cabo Branco**.
 - **Noite (sábado = melhor noite):** **Largo de Tambaú / Letreiro** — barzinho **Matuto Teimoso** (forró ao vivo) + feirinha. *Opção:* **Rua dos Sabores** (Miramar).
 
-### 📅 DOM 25/09 — ⭐ Piscinas naturais de PICÃOZINHO + tarde de compras
-- **Manhã/início tarde (conforme maré):** **Catamarã Picãozinho** (mais perto, ~15 min) — snorkel, peixinhos. **A primeira dose de piscina natural.**
-- **Tarde:** **Mercado de Artesanato Paraibano** (dom fecha 14h — vá antes!) OU descanso na praia de Tambaú.
+### 📅 SEX 25/09 — ⭐ Piscinas naturais de PICÃOZINHO + tarde de compras (baixa-mar 09:08 → sair ~7h30–8h)
+- **Manhã (conforme maré, saída ~8h):** **Catamarã Picãozinho** (mais perto, ~15 min) — snorkel, peixinhos. **A primeira dose de piscina natural.**
+- **Tarde:** **Mercado de Artesanato Paraibano** (sexta, aberto até 18h) OU descanso na praia de Tambaú.
 - **Noite:** **Parque Cabo Branco** (food trucks, crepe de carne de sol) — clima família, música ao vivo.
 
-### 📅 SEG 26/09 — Passeio de dia inteiro: BUGGY LITORAL SUL
+### 📅 SÁB 26/09 — Passeio de dia inteiro: BUGGY LITORAL SUL (baixa-mar 09:41 — bom p/ piscininhas de Tambaba)
 - **Dia todo (5–7h):** **Nosso Tour / PNP** — Barra de Gramame → Mirante das falésias → **Shopping Rural Doce Tambaba** → **Tambaba** (piscininhas naturais + naturismo opcional) → **⭐ Coqueirinho** (enseada "piscinão", uma das praias mais bonitas do Brasil). Almoço beira-mar em Coqueirinho (peixe + batata ~R$75).
 - **Noite:** descanso / jantar tranquilo na orla (dia foi puxado).
 
-### 📅 TER 27/09 — ⭐ Piscinas de SEIXAS (as mais famosas) + noite alta
-- **Manhã/tarde (conforme maré):** **Catamarã piscinas de Seixas** (40 min de barco, piscinas grandes). *Leve remédio de enjoo.* **A segunda dose de piscina natural — as "mais famosas".**
+### 📅 DOM 27/09 — ⭐⭐ Piscinas de SEIXAS (dia de MARÉ MAIS FORTE, baixa 10:32 = 0,18 m, Lua Cheia)
+- **Manhã (saída ~9h):** **Catamarã piscinas de Seixas** (40 min de barco, piscinas grandes). *Leve remédio de enjoo.* **Melhor dia da semana para snorkel — recifes máximo expostos, água mais cristalina.**
 - **Fim de tarde:** relaxar na orla.
 - **Noite:** jantar no **⭐ Sky Restô** (45º andar, vista do mar — **faça reserva p/ mesa na janela**). Drink no **Skybar** depois.
 
-### 📅 QUA 28/09 — ⭐ Passeio de BARCO: Areia Vermelha + Pôr do sol do Jacaré
-- **Dia todo:** **Real Mar (Marcos/Lídia)** — **Ilha de Areia Vermelha** (banco de areia que surge no mar na maré baixa — 3ª dose de piscina natural!), Areia Dourada, Ilha da Restinga, churrasco a bordo, navegação no rio.
+### 📅 SEG 28/09 — ⭐ Passeio de BARCO: Areia Vermelha + Pôr do sol do Jacaré (baixa-mar 11:06 = meio-dia, banco de areia totalmente exposto)
+- **Dia todo:** **Real Mar (Marcos/Lídia)** — **Ilha de Areia Vermelha** (banco de areia que surge no mar na maré baixa — baixa ao meio-dia = ilha 100% exposta, perfeito! 3ª dose de piscina natural), Areia Dourada, Ilha da Restinga, churrasco a bordo, navegação no rio.
 - **Fim de tarde (~17h):** **Pôr do sol da Praia do Jacaré** com **Jurandy do Sax (Bolero de Ravel)** ao vivo. Feirinha do Jacaré à noite.
 
-### 📅 QUI 29/09 — Litoral Norte (Lucena) OU Cabedelo + Centro histórico
+### 📅 TER 29/09 — Litoral Norte (Lucena) OU Cabedelo + Centro histórico (baixa-mar 11:44 = meio-dia, ótimo p/ Caminho de Moisés)
 **Opção A (aventura):** **Buggy/Carro Litoral Norte** — balsa → **Caminho de Moisés** (piscinão no mar, 4ª dose de piscina natural) → Coqueiral → Barra do Miriri → **Igreja N. Sra. da Guia (1591)** → **Fortaleza de Santa Catarina**.
 **Opção B (cultura + praia calma):** manhã nas praias de **Cabedelo** (Ponta de Campina, Camboinha — mar mais azul) + tarde no **Centro Histórico** (**⭐ Igreja de São Francisco**, Catedral das Neves, Hotel Globo, Praça Antenor Navarro).
 - **Noite:** última noite em JP — **Rua dos Sabores** (Jones Grill / Bar Alquimia / Beco Mágico) ou quiosque **Tubarão**.
 
-### 📅 SEX 30/09 — Manhã tranquila + viagem para Recife
+### 📅 QUA 30/09 — Manhã tranquila + viagem para Recife
 - **Manhã:** **Parque Solon de Lucena (Lagoa)** rápido OU última praia + compras de última hora no Mercado de Artesanato. Se sobrou a **Igreja de São Francisco**, encaixe aqui.
 - **Tarde:** **viagem JP → Recife** (~120–130 km, **~2h de carro**). Check-in em Recife/Boa Viagem/Olinda.
 - **Noite:** jantar leve em Recife. **Início do descanso.**
@@ -317,15 +354,45 @@ Dia de **descanso**, então roteiro leve, sem correria:
 </script>
 <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
 <script>
+  // --- roteiro markdown ---
   var src = document.getElementById('md').textContent;
-  var html = marked.parse(src, {gfm:true, breaks:false});
   var c = document.getElementById('content');
-  c.innerHTML = html;
-  // wrap tables for horizontal scroll on mobile
+  c.innerHTML = marked.parse(src, {gfm:true, breaks:false});
   c.querySelectorAll('table').forEach(function(t){
     var d=document.createElement('div'); d.className='tablescroll';
     t.parentNode.insertBefore(d,t); d.appendChild(t);
   });
+
+  // --- tide widget (previsão fixa: Cabedelo/JP) ---
+  var TIDES = {
+    '2026-09-24':{low:'08:35',lowH:'0,4 m',ev:'Alta 02:24 · Baixa 08:35 · Alta 14:42 · Baixa 20:49',best:false},
+    '2026-09-25':{low:'09:08',lowH:'0,3 m',ev:'Alta 02:57 · Baixa 09:08 · Alta 15:13 · Baixa 21:20',best:false},
+    '2026-09-26':{low:'09:41',lowH:'0,3 m',ev:'Alta 03:30 · Baixa 09:41 · Alta 15:45 · Baixa 21:53',best:true},
+    '2026-09-27':{low:'10:32',lowH:'0,18 m',ev:'Alta 04:29 · Baixa 10:32 · Alta 16:47 · Baixa 22:51',best:true},
+    '2026-09-28':{low:'11:06',lowH:'0,21 m',ev:'Alta 05:04 · Baixa 11:06 · Alta 17:23 · Baixa 23:25',best:true},
+    '2026-09-29':{low:'11:44',lowH:'0,30 m',ev:'Alta 05:44 · Baixa 11:44 · Alta 18:02',best:false},
+    '2026-09-30':{low:'12:21',lowH:'0,44 m',ev:'Baixa 00:06 · Alta 06:25 · Baixa 12:21 · Alta 18:46',best:false},
+    '2026-10-01':{low:'13:08',lowH:'0,62 m',ev:'Baixa 00:55 · Alta 07:16 · Baixa 13:08 · Alta 19:36',best:false}
+  };
+  function ymd(d){ return d.toLocaleDateString('en-CA'); } // YYYY-MM-DD hora local
+  function ptLabel(d){ return d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}); }
+  function card(title,dateStr){
+    var t=TIDES[dateStr];
+    if(!t) return '<div class="tcard"><div class="lbl">'+title+'</div><div class="evs">Sem dado de maré para '+dateStr+' (fora do período 24/09–01/10). Veja a tábua completa no roteiro abaixo.</div></div>';
+    return '<div class="tcard"><div class="lbl">'+title+' · '+dateStr.split('-').reverse().slice(0,2).join('/')+'</div>'+
+           '<div class="low">Baixa-mar '+t.low+' <small>('+t.lowH+')</small></div>'+
+           '<div class="evs">'+t.ev+'</div>'+
+           (t.best?'<span class="best">⭐ Ótimo dia p/ piscinas naturais</span>':'')+'</div>';
+  }
+  var now=new Date();
+  var today=ymd(now);
+  var tmr=new Date(now.getTime()+86400000); var tomorrow=ymd(tmr);
+  var html=card('Hoje',today)+card('Amanhã',tomorrow);
+  // se estiver totalmente fora do período, mostra próxima janela
+  if(!TIDES[today] && !TIDES[tomorrow]){
+    html='<div class="tcard"><div class="lbl">Período da viagem</div><div class="evs">Hoje ('+today+') está fora dos dias 24/09–01/10. A tábua completa dos seus dias está na seção <b>🌊 1B</b> do roteiro abaixo.</div></div>';
+  }
+  document.getElementById('tcards').innerHTML=html;
 </script>
 </body>
 </html>
