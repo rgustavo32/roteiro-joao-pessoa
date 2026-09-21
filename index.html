@@ -60,6 +60,14 @@
   .bbadge.no{background:#fdeaea;color:#c0392b;border:1px solid #f2c2bd}
   .bmeta{font-size:.76rem;color:var(--muted);margin-top:6px;line-height:1.45}
   .blink{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;background:#0a6ebd;color:#fff;border-radius:8px;padding:6px 11px;text-decoration:none}
+  #tallgraphs{margin:14px 0}
+  #tallgraphs svg{width:100%;max-width:720px;height:auto;display:block;margin:0 auto}
+  #tallgraphs .agt{font-size:.9rem;font-weight:700;color:var(--tide);margin:14px 6px 2px;padding-top:8px;border-top:1px solid #eef1f4}
+  #tallgraphs .agt:first-child{margin-top:2px;padding-top:0;border-top:none}
+  #tchips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+  .chip{background:#fff;border:1px solid #cfe0ec;border-radius:20px;padding:5px 11px;font-size:.82rem;font-weight:600;display:inline-flex;align-items:center;gap:5px;color:#25506b}
+  .chip b{color:var(--tide)}
+  .chip.hot{background:#fff4e6;border-color:#f0cf9a}
 </style>
 </head>
 <body>
@@ -67,6 +75,7 @@
 <div id="tidebox">
   <h2>🌊 Situação da maré AGORA — Cabedelo / João Pessoa</h2>
   <div id="tnow">Calculando…</div>
+  <div id="tchips"></div>
   <div id="tgraph" class="tgraph"></div>
   <div id="tbaln" class="tbaln"></div>
   <div id="tcards" class="tcards"></div>
@@ -126,6 +135,8 @@ A Fabi ama fazer **snorkel** nelas: *"chegou minha parte preferida que é fazer 
 | Qui 01/10 (Recife) | 13:08 (0,62 m) | 07:16 · 19:36 (2,2 m) | 00:55 | 05:03–17:15 |
 
 **Como usar:** o barco deve **chegar à piscina perto da baixa-mar**. Saia da orla ~**1h–1h30 antes** do horário da baixa-mar do dia. Ex.: dia 27 (baixa 10:32) → sair ~9h. Fonte reempacotada (fácil no celular): `tabuademares.com/br/paraiba/cabedelo`.
+
+<div id="tallgraphs"></div>
 
 ---
 
@@ -564,8 +575,48 @@ Dia de **descanso**, então roteiro leve, sem correria:
     document.getElementById('tbaln').innerHTML=b;
   }
 
-  renderNow(); renderCards(); buildGraph(); renderBaln();
-  setInterval(function(){renderNow();renderCards();buildGraph();},60000);
+  // ---------- chips do topo (baliza da estadia) ----------
+  var GRADE={
+    '2026-09-24':'Chegada + Farol / Ponta do Seixas',
+    '2026-09-25':'⭐ Piscinas de Picãozinho',
+    '2026-09-26':'Buggy Litoral Sul (Coqueirinho)',
+    '2026-09-27':'⭐ Piscinas de Seixas (melhor dia)',
+    '2026-09-28':'Barco Areia Vermelha + Jacaré',
+    '2026-09-29':'Litoral Norte (Lucena) / Centro',
+    '2026-09-30':'Manhã leve → viagem p/ Recife'
+  };
+  var TRIP=['2026-09-24','2026-09-25','2026-09-26','2026-09-27','2026-09-28','2026-09-29','2026-09-30','2026-10-01'];
+  var BEST={'2026-09-26':1,'2026-09-27':1,'2026-09-28':1};
+  function nextDayLow(now){for(var i=0;i<EX.length;i++){var e=EX[i];if(e.t==='L'&&e.d>now){var h=e.d.getHours();if(h>=6&&h<16)return e;}}return null;}
+  function renderChips(){
+    var now=new Date(),today=ymd(now);
+    var chips=[];
+    if(GRADE[today]) chips.push('<span class="chip">🗓️ Hoje: <b>'+GRADE[today]+'</b></span>');
+    else if(TRIP.indexOf(today)>=0) chips.push('<span class="chip">🗓️ Hoje: <b>Descanso / livre</b></span>');
+    else chips.push('<span class="chip">🗓️ <b>Fora dos dias de JP</b> (24–30/09)</span>');
+    var nl=nextDayLow(now);
+    if(nl){var t=hm(nl.d)+(ymd(nl.d)!==today?(' '+nl.d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})):'');
+      chips.push('<span class="chip hot">🏊 Próx. janela piscina: <b>'+t+'</b></span>');}
+    chips.push('<span class="chip">🌅 Sol <b>~05:05–17:15</b></span>');
+    chips.push('<span class="chip">☀️ Sol forte 9h–15h — <b>protetor</b></span>');
+    document.getElementById('tchips').innerHTML=chips.join('');
+  }
+
+  // ---------- gráficos de todos os dias na seção 1B ----------
+  function renderAllGraphs(){
+    var box=document.getElementById('tallgraphs'); if(!box) return;
+    var html='';
+    TRIP.forEach(function(k){
+      var ds=new Date(k+'T00:00');
+      var tit='📈 '+ds.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})+(BEST[k]?' — ⭐ melhor p/ piscinas':'');
+      var svg=graphSvg(ds,false);
+      html+='<div class="agt">'+tit+'</div>'+(svg||'<div style="color:#999">sem dados</div>');
+    });
+    box.innerHTML=html;
+  }
+
+  renderNow(); renderCards(); buildGraph(); renderBaln(); renderChips(); renderAllGraphs();
+  setInterval(function(){renderNow();renderCards();buildGraph();renderChips();},60000);
 </script>
 </body>
 </html>
