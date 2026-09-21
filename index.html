@@ -49,7 +49,8 @@
   .tnote{font-size:.8rem;color:var(--muted);margin:.6em 2px 2px}
   .tgraph{background:#fff;border-radius:11px;padding:8px 6px 4px;margin-bottom:12px;border:1px solid rgba(0,0,0,.06)}
   .tgraph svg{width:100%;max-width:720px;height:auto;display:block;margin:0 auto}
-  .tgtitle{font-size:.9rem;font-weight:700;color:var(--tide);margin:2px 6px 4px}
+  .tgtitle{font-size:.9rem;font-weight:700;color:var(--tide);margin:12px 6px 4px;padding-top:8px;border-top:1px solid #eef1f4}
+  .tgtitle:first-child{margin-top:2px;padding-top:0;border-top:none}
   .tglegend{font-size:.72rem;color:var(--muted);margin:2px 6px 2px;line-height:1.4}
 </style>
 </head>
@@ -464,14 +465,12 @@ Dia de **descanso**, então roteiro leve, sem correria:
     document.getElementById('tcards').innerHTML=card('Hoje',today)+card('Amanhã',tmr);
   }
 
-  function buildGraph(){
+  function graphSvg(dstart,drawNow){
     var W=720,H=240,padL=40,padR=14,padT=24,padB=30,plW=W-padL-padR,plH=H-padT-padB,HD=2.8;
     var now=new Date();
-    var dstart=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     var dend=new Date(dstart.getTime()+86400000);
     var inDay=EX.filter(function(e){return e.d>=dstart&&e.d<dend;});
-    var note='';
-    if(!inDay.length){dstart=new Date(2026,8,27);dend=new Date(dstart.getTime()+86400000);inDay=EX.filter(function(e){return e.d>=dstart&&e.d<dend;});note=' — exemplo 27/09 (hoje fora do período)';}
+    if(!inDay.length) return null;
     function xOf(min){return padL+(min/1440)*plW;}
     function yOf(h){return padT+(1-h/HD)*plH;}
     function mins(dt){return (dt-dstart)/60000;}
@@ -506,7 +505,7 @@ Dia de **descanso**, então roteiro leve, sem correria:
         s+='<text x="'+lx+'" y="'+(y+30)+'" font-size="15" fill="#555" text-anchor="middle">'+hm(e.d)+' · '+e.h.toFixed(2).replace('.',',')+'m</text>';
       }
     });
-    if(now>=dstart&&now<dend){
+    if(drawNow && now>=dstart && now<dend){
       var xn=xOf(mins(now)),hvn=hAt(now),yn=hvn!=null?yOf(hvn):padT;
       s+='<line x1="'+xn+'" y1="'+padT+'" x2="'+xn+'" y2="'+(padT+plH)+'" stroke="#e8552d" stroke-width="2" stroke-dasharray="4 3"/>';
       if(hvn!=null)s+='<circle cx="'+xn+'" cy="'+yn+'" r="5" fill="#e8552d"/>';
@@ -514,7 +513,23 @@ Dia de **descanso**, então roteiro leve, sem correria:
       s+='<text x="'+nx+'" y="'+(padT-8)+'" font-size="16" font-weight="700" fill="#e8552d" text-anchor="middle">agora '+hm(now)+'</text>';
     }
     s+='</svg>';
-    document.getElementById('tgraph').innerHTML='<div class="tgtitle">📈 Maré do dia'+note+'</div>'+s+'<div class="tglegend">Área azul = maré · linha laranja = agora · faixa cinza = noite · 🟢 ⭐ baixa-mar = piscinas naturais · 🔵 cheia = banho de mar / barco.</div>';
+    return s;
+  }
+
+  function buildGraph(){
+    var now=new Date();
+    var base=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var lbls=['Hoje','Amanhã','Depois'];
+    var html='';
+    for(var k=0;k<3;k++){
+      var ds=new Date(base.getTime()+k*86400000);
+      var tit='📈 '+lbls[k]+' · '+ds.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'});
+      var svg=graphSvg(ds,k===0);
+      if(svg){ html+='<div class="tgtitle">'+tit+'</div>'+svg; }
+      else { html+='<div class="tgtitle" style="color:#999">'+tit+' — sem dados (fora de 21/09–01/10)</div>'; }
+    }
+    html+='<div class="tglegend">Área azul = maré · linha laranja = agora · faixa cinza = noite · 🟢 ⭐ baixa-mar = piscinas naturais · 🔵 cheia = banho de mar / barco.</div>';
+    document.getElementById('tgraph').innerHTML=html;
   }
 
   renderNow(); renderCards(); buildGraph();
