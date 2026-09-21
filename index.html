@@ -47,6 +47,10 @@
   .tcard .evs{font-size:.8rem;color:#333;margin-top:.3em}
   .tcard .best{display:inline-block;margin-top:.4em;font-size:.76rem;background:#e6f7ee;color:#0a7d5a;border-radius:6px;padding:2px 7px;font-weight:700}
   .tnote{font-size:.8rem;color:var(--muted);margin:.6em 2px 2px}
+  .tgraph{background:#fff;border-radius:11px;padding:8px 6px 4px;margin-bottom:12px;border:1px solid rgba(0,0,0,.06)}
+  .tgraph svg{width:100%;max-width:720px;height:auto;display:block;margin:0 auto}
+  .tgtitle{font-size:.9rem;font-weight:700;color:var(--tide);margin:2px 6px 4px}
+  .tglegend{font-size:.72rem;color:var(--muted);margin:2px 6px 2px;line-height:1.4}
 </style>
 </head>
 <body>
@@ -54,6 +58,7 @@
 <div id="tidebox">
   <h2>🌊 Situação da maré AGORA — Cabedelo / João Pessoa</h2>
   <div id="tnow">Calculando…</div>
+  <div id="tgraph" class="tgraph"></div>
   <div id="tcards" class="tcards"></div>
   <p class="tnote">Previsão oficial (Marinha do Brasil / Porto de Cabedelo), interpolada ao vivo. Recarregue a página p/ atualizar. Nível é estimativa entre as marés previstas.</p>
 </div>
@@ -459,8 +464,61 @@ Dia de **descanso**, então roteiro leve, sem correria:
     document.getElementById('tcards').innerHTML=card('Hoje',today)+card('Amanhã',tmr);
   }
 
-  renderNow(); renderCards();
-  setInterval(function(){renderNow();renderCards();},60000);
+  function buildGraph(){
+    var W=720,H=240,padL=40,padR=14,padT=24,padB=30,plW=W-padL-padR,plH=H-padT-padB,HD=2.8;
+    var now=new Date();
+    var dstart=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var dend=new Date(dstart.getTime()+86400000);
+    var inDay=EX.filter(function(e){return e.d>=dstart&&e.d<dend;});
+    var note='';
+    if(!inDay.length){dstart=new Date(2026,8,27);dend=new Date(dstart.getTime()+86400000);inDay=EX.filter(function(e){return e.d>=dstart&&e.d<dend;});note=' — exemplo 27/09 (hoje fora do período)';}
+    function xOf(min){return padL+(min/1440)*plW;}
+    function yOf(h){return padT+(1-h/HD)*plH;}
+    function mins(dt){return (dt-dstart)/60000;}
+    function hAt(dt){var p=null,n=null;for(var i=0;i<EX.length-1;i++){if(EX[i].d<=dt&&dt<EX[i+1].d){p=EX[i];n=EX[i+1];break;}}if(!p||!n)return null;var ph=(dt-p.d)/(n.d-p.d);return p.h+(n.h-p.h)*(1-Math.cos(Math.PI*ph))/2;}
+    var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Grafico de mare do dia">';
+    var sr=305, ss=1035;
+    s+='<rect x="'+padL+'" y="'+padT+'" width="'+(xOf(sr)-padL)+'" height="'+plH+'" fill="rgba(40,44,64,.07)"/>';
+    s+='<rect x="'+xOf(ss)+'" y="'+padT+'" width="'+(padL+plW-xOf(ss))+'" height="'+plH+'" fill="rgba(40,44,64,.07)"/>';
+    [0.5,1,1.5,2,2.5].forEach(function(hv){var y=yOf(hv);s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(padL+plW)+'" y2="'+y+'" stroke="#eee"/>';});
+    [0,1,2].forEach(function(hv){var y=yOf(hv);s+='<text x="'+(padL-6)+'" y="'+(y+4)+'" font-size="14" fill="#aaa" text-anchor="end">'+hv+'m</text>';});
+    for(var hh=0;hh<=24;hh+=3){var x=xOf(hh*60);s+='<line x1="'+x+'" y1="'+padT+'" x2="'+x+'" y2="'+(padT+plH)+'" stroke="#f3f3f3"/>';s+='<text x="'+x+'" y="'+(padT+plH+18)+'" font-size="14" fill="#999" text-anchor="middle">'+hh+'h</text>';}
+    var pts=[];for(var m=0;m<=1440;m+=15){var dt=new Date(dstart.getTime()+m*60000);var hv=hAt(dt);if(hv!=null)pts.push([xOf(m),yOf(hv)]);}
+    if(pts.length){
+      var d='M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1);for(var i=1;i<pts.length;i++)d+=' L'+pts[i][0].toFixed(1)+' '+pts[i][1].toFixed(1);
+      var area=d+' L'+pts[pts.length-1][0].toFixed(1)+' '+yOf(0).toFixed(1)+' L'+pts[0][0].toFixed(1)+' '+yOf(0).toFixed(1)+' Z';
+      s+='<path d="'+area+'" fill="rgba(10,110,189,.12)"/>';
+      s+='<path d="'+d+'" fill="none" stroke="#0a6ebd" stroke-width="2.5"/>';
+    }
+    inDay.forEach(function(e){
+      var x=xOf(mins(e.d)),y=yOf(e.h),hh=e.d.getHours(),day=(hh>=6&&hh<17);
+      var lx=Math.max(padL+44,Math.min(padL+plW-44,x));
+      s+='<circle cx="'+x+'" cy="'+y+'" r="3.5" fill="'+(e.t==='L'?'#0a7d5a':'#0a6ebd')+'"/>';
+      if(e.t==='L'){
+        var spot=hh<9?'Picãozinho':hh<11?'Seixas':hh<14?'Areia Vermelha':'piscinas';
+        var star=e.h<=0.25?'🔥':'⭐';
+        var rec=day?(star+' '+spot):'baixa (noite)';
+        s+='<text x="'+lx+'" y="'+(y-20)+'" font-size="17" font-weight="700" fill="#0a7d5a" text-anchor="middle">'+rec+'</text>';
+        s+='<text x="'+lx+'" y="'+(y-7)+'" font-size="15" fill="#555" text-anchor="middle">'+hm(e.d)+' · '+e.h.toFixed(2).replace('.',',')+'m</text>';
+      } else {
+        var rl=day?'🔵 banho de mar':'preamar';
+        s+='<text x="'+lx+'" y="'+(y+16)+'" font-size="16" font-weight="600" fill="#0a6ebd" text-anchor="middle">'+rl+'</text>';
+        s+='<text x="'+lx+'" y="'+(y+30)+'" font-size="15" fill="#555" text-anchor="middle">'+hm(e.d)+' · '+e.h.toFixed(2).replace('.',',')+'m</text>';
+      }
+    });
+    if(now>=dstart&&now<dend){
+      var xn=xOf(mins(now)),hvn=hAt(now),yn=hvn!=null?yOf(hvn):padT;
+      s+='<line x1="'+xn+'" y1="'+padT+'" x2="'+xn+'" y2="'+(padT+plH)+'" stroke="#e8552d" stroke-width="2" stroke-dasharray="4 3"/>';
+      if(hvn!=null)s+='<circle cx="'+xn+'" cy="'+yn+'" r="5" fill="#e8552d"/>';
+      var nx=Math.max(padL+30,Math.min(padL+plW-30,xn));
+      s+='<text x="'+nx+'" y="'+(padT-8)+'" font-size="16" font-weight="700" fill="#e8552d" text-anchor="middle">agora '+hm(now)+'</text>';
+    }
+    s+='</svg>';
+    document.getElementById('tgraph').innerHTML='<div class="tgtitle">📈 Maré do dia'+note+'</div>'+s+'<div class="tglegend">Área azul = maré · linha laranja = agora · faixa cinza = noite · 🟢 ⭐ baixa-mar = piscinas naturais · 🔵 cheia = banho de mar / barco.</div>';
+  }
+
+  renderNow(); renderCards(); buildGraph();
+  setInterval(function(){renderNow();renderCards();buildGraph();},60000);
 </script>
 </body>
 </html>
