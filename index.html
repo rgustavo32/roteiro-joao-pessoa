@@ -52,6 +52,14 @@
   .tgtitle{font-size:.9rem;font-weight:700;color:var(--tide);margin:12px 6px 4px;padding-top:8px;border-top:1px solid #eef1f4}
   .tgtitle:first-child{margin-top:2px;padding-top:0;border-top:none}
   .tglegend{font-size:.72rem;color:var(--muted);margin:2px 6px 2px;line-height:1.4}
+  .tbaln{background:#fff;border-radius:11px;padding:10px 12px;margin-bottom:12px;border:1px solid rgba(0,0,0,.06)}
+  .tbaln .bt{font-size:.9rem;font-weight:700;color:var(--tide);margin-bottom:6px}
+  .bbadges{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0}
+  .bbadge{font-size:.8rem;font-weight:700;border-radius:7px;padding:3px 9px;display:inline-flex;align-items:center;gap:4px}
+  .bbadge.ok{background:#e6f7ee;color:#0a7d5a;border:1px solid #b7e3c8}
+  .bbadge.no{background:#fdeaea;color:#c0392b;border:1px solid #f2c2bd}
+  .bmeta{font-size:.76rem;color:var(--muted);margin-top:6px;line-height:1.45}
+  .blink{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;background:#0a6ebd;color:#fff;border-radius:8px;padding:6px 11px;text-decoration:none}
 </style>
 </head>
 <body>
@@ -60,6 +68,7 @@
   <h2>🌊 Situação da maré AGORA — Cabedelo / João Pessoa</h2>
   <div id="tnow">Calculando…</div>
   <div id="tgraph" class="tgraph"></div>
+  <div id="tbaln" class="tbaln"></div>
   <div id="tcards" class="tcards"></div>
   <p class="tnote">Previsão oficial (Marinha do Brasil / Porto de Cabedelo), interpolada ao vivo. Recarregue a página p/ atualizar. Nível é estimativa entre as marés previstas.</p>
 </div>
@@ -532,7 +541,30 @@ Dia de **descanso**, então roteiro leve, sem correria:
     document.getElementById('tgraph').innerHTML=html;
   }
 
-  renderNow(); renderCards(); buildGraph();
+  // ---------- balneabilidade (SUDEMA - semanal, NÃO é maré) ----------
+  var BALN={
+    ref:'boletim SUDEMA · amostra ~08–10/09/2026 (validade semanal)',
+    link:'https://sudema.pb.gov.br/sudema-a-populacao/balneabilidade-das-praias',
+    praias:[
+      {n:'Cabo Branco',ok:true},{n:'Tambaú',ok:true},{n:'Manaíra',ok:true},
+      {n:'Bessa',ok:true},{n:'Cabedelo (Intermares/Camboinha)',ok:true},
+      {n:'Seixas (trecho)',ok:false},{n:'Penha (trecho)',ok:false}
+    ]
+  };
+  function renderBaln(){
+    var b='<div class="bt">🚩 Água própria pra banho? (SUDEMA)</div><div class="bbadges">';
+    BALN.praias.forEach(function(p){
+      b+='<span class="bbadge '+(p.ok?'ok':'no')+'">'+(p.ok?'✅':'⛔')+' '+p.n+'</span>';
+    });
+    b+='</div>';
+    b+='<div class="bmeta">Base: '+BALN.ref+'. Trechos impróprios valem só ~100 m ao redor do ponto de coleta. '+
+       '<b>Não é da Marinha nem previsível como a maré</b> — muda toda semana conforme análise de coliformes. '+
+       'As piscinas naturais offshore (Picãozinho, Areia Vermelha) não entram nesse boletim.</div>'+
+       '<a class="blink" href="'+BALN.link+'" target="_blank" rel="noopener">🔎 Conferir boletim ATUAL da SUDEMA</a>';
+    document.getElementById('tbaln').innerHTML=b;
+  }
+
+  renderNow(); renderCards(); buildGraph(); renderBaln();
   setInterval(function(){renderNow();renderCards();buildGraph();},60000);
 </script>
 </body>
