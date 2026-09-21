@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página B — Maragogi (22/09) & Porto de Galinhas (23/09)</title>
+<style>
+  :root{--bg:#fbfaf7;--fg:#23201c;--accent:#0a7d5a;--muted:#6b6357;--line:#e6e0d6;--tide:#0a6ebd;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;}
+  .wrap{max-width:820px;margin:0 auto;padding:18px 16px 80px;}
+  h1{font-size:1.55rem;line-height:1.25;margin:.2em 0 .3em}
+  h2{font-size:1.25rem;margin:1.4em 0 .5em;color:var(--accent)}
+  h3{font-size:1.05rem;margin:1.1em 0 .3em}
+  a{color:var(--accent);word-break:break-word}
+  hr{border:none;border-top:1px solid var(--line);margin:1.3em 0}
+  blockquote{margin:1em 0;padding:.6em .9em;background:#fff3e0;border-left:4px solid #e8a33d;border-radius:6px}
+  table{border-collapse:collapse;width:100%;font-size:.9rem}
+  .tablescroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1em 0;border:1px solid var(--line);border-radius:8px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f0ece3}
+  ul,ol{padding-left:1.3em}
+  li{margin:.25em 0}
+  .nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .nav a{background:#0a6ebd;color:#fff;text-decoration:none;font-weight:700;font-size:.82rem;border-radius:8px;padding:7px 12px}
+  .nav a.alt{background:#0a7d5a}
+  .dest{border:2px solid #bcdff5;background:#eaf4fb;border-radius:14px;padding:16px 15px 10px;margin:0 0 22px}
+  .dest h2{margin-top:.1em;color:var(--tide);border:none}
+  .card{background:#fff;border-radius:11px;padding:12px 14px;margin-bottom:12px;border:1px solid rgba(0,0,0,.06)}
+  .card .state{font-size:1.2rem;font-weight:800;margin:.1em 0}
+  .card .rec{margin-top:.4em;font-size:1rem;font-weight:600;line-height:1.4}
+  .card .meta{font-size:.83rem;color:var(--muted);margin-top:.5em}
+  .gwrap svg{width:100%;max-width:720px;height:auto;display:block;margin:4px auto}
+  .gtitle{font-size:.9rem;font-weight:700;color:var(--tide);margin:2px 6px 2px}
+  .glegend{font-size:.72rem;color:var(--muted);margin:2px 6px 6px;line-height:1.4}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin:2px 0 10px}
+  .chip{background:#fff;border:1px solid #cfe0ec;border-radius:20px;padding:5px 11px;font-size:.82rem;font-weight:600;display:inline-flex;align-items:center;gap:5px;color:#25506b}
+  .chip b{color:var(--tide)}
+  .chip.hot{background:#fff4e6;border-color:#f0cf9a}
+  .baln{font-size:.82rem;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:10px 12px;margin-top:4px}
+  .blink{display:inline-block;margin-top:6px;font-size:.8rem;font-weight:700;background:#0a6ebd;color:#fff;border-radius:8px;padding:6px 11px;text-decoration:none}
+  .updated{color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🌊 Página B — Maragogi & Porto de Galinhas</h1>
+<div class="nav">
+  <a href="./">⬅ Roteiro João Pessoa (Página A)</a>
+</div>
+<p class="updated" style="margin-top:-4px">Bate-voltas antes de JP: <b>Maragogi/AL 22/09</b> · <b>Porto de Galinhas/PE 23/09</b>. Maré, gráficos e recomendações no mesmo estilo da Página A.</p>
+
+<div class="dest" id="d-maragogi">
+  <h2>🏝️ Maragogi (AL) — 22/09</h2>
+  <div id="mar-status" class="card">Calculando…</div>
+  <div id="mar-chips" class="chips"></div>
+  <div id="mar-graph" class="gwrap"></div>
+  <div id="mar-md"></div>
+  <div class="baln">🚩 <b>Balneabilidade (AL):</b> quem mede é o <b>IMA-AL</b> (Instituto do Meio Ambiente de Alagoas), boletim semanal — não é maré, muda toda semana. As piscinas das <b>Galés</b> ficam a ~6 km da costa (dentro da APA Costa dos Corais), fora do boletim de praia urbana.<br><a class="blink" href="http://www.ima.al.gov.br" target="_blank" rel="noopener">🔎 Boletim IMA-AL</a></div>
+</div>
+
+<div class="dest" id="d-pdg">
+  <h2>🐟 Porto de Galinhas (PE) — 23/09</h2>
+  <div id="pdg-status" class="card">Calculando…</div>
+  <div id="pdg-chips" class="chips"></div>
+  <div id="pdg-graph" class="gwrap"></div>
+  <div id="pdg-md"></div>
+  <div class="baln">🚩 <b>Balneabilidade (PE):</b> quem mede é a <b>CPRH</b> (Agência Estadual de Meio Ambiente de PE), boletim semanal — não é maré. As piscinas naturais de jangada ficam nos recifes à frente da praia, fora do boletim de areia.<br><a class="blink" href="https://www.cprh.pe.gov.br" target="_blank" rel="noopener">🔎 Boletim CPRH-PE</a></div>
+</div>
+
+<p class="updated">Página pública · gerada em 21/09/2026 · maré: previsão CHM/Marinha (estações locais de Maragogi e Porto de Galinhas), interpolada ao vivo.</p>
+</div>
+
+<script id="md-mar" type="text/plain">
+### O que fazer em Maragogi (22/09)
+
+**⭐ Piscinas Naturais das Galés** — o passeio principal. Piscinas de corais a ~6 km da costa, dentro da **APA Costa dos Corais** (maior unidade de conservação marinha do Brasil). Catamarã/lancha **só sai na maré baixa** — snorkel entre corais e peixes, água transparente e rasa (tipo as de Natal que vocês amaram, porém em alto-mar).
+- **Maré baixa do dia: ~06:55 (0,6 m)** → o passeio das Galés sai **cedo, de manhã**. Confirme o horário do catamarã com a operadora no dia anterior (a saída acompanha a maré).
+- Embarque: **orla/porto de Maragogi** (Passarela do Descobrimento / píer central).
+- Duração: **~3–4h** (deslocamento + ~1h30 nas piscinas). Cobra ingresso da APA + passeio.
+- Leve: protetor biodegradável, snorkel (dá pra alugar), água.
+
+**Se sobrar tempo:**
+- **Praia de Antunes / Barra Grande / Peroba** — praias calmas com coqueiros e piscininhas na maré baixa.
+- **Japaratinga** (vizinha) — mais piscinas naturais e caminhada no mar na maré baixa.
+- **Almoço:** frutos do mar na orla de Maragogi.
+
+**Tempo estimado:** Galés = meio período (manhã). Tarde livre p/ praia + seguir viagem a Porto de Galinhas à noite.
+</script>
+
+<script id="md-pdg" type="text/plain">
+### O que fazer em Porto de Galinhas (23/09)
+
+**⭐ Piscinas Naturais de Porto de Galinhas** — o cartão-postal. **Jangadas** saem da praia central **na maré baixa**, ~10 min até os recifes; snorkel entre corais e muitos peixes coloridos.
+- **Maré baixa do dia: ~07:35 (0,5 m)** → vá **cedo, de manhã** (a jangada só cruza com maré recuada). A baixa da tarde (19:51) é depois do pôr do sol — não serve.
+- Embarque: **praia central de Porto de Galinhas** (ponto das jangadas). Paga a taxa da jangada por pessoa.
+- Duração: **1–2h**. Chegue perto da baixa-mar.
+
+**Complementos (mesma região):**
+- **Vila de Porto de Galinhas** — lojinhas, artesanato, gastronomia, tapiocaria.
+- **Praia de Muro Alto** (~10 min) — enorme piscina natural protegida por arrecifes, mar calmíssimo.
+- **Maracaípe** — mangue com passeio de caiaque (peixe-boi/cavalo-marinho) e praia de surfe.
+- **Praia dos Carneiros** (~40 min, Tamandaré) — uma das mais lindas do Brasil, com a igrejinha na areia e passeios de barco (fica p/ outra vez se o dia for curto).
+
+**Tempo estimado:** piscinas de manhã (1–2h) + Vila/Muro Alto à tarde, antes de voltar p/ João Pessoa à noite.
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script>
+  function mk(EX){return EX.map(function(e){return {d:new Date(e[0]),h:e[1],t:e[2]};});}
+  var EX_MAR=mk([
+    ['2026-09-21T06:04',0.7,'L'],['2026-09-21T12:21',1.7,'H'],['2026-09-21T18:36',0.7,'L'],
+    ['2026-09-22T00:36',1.7,'H'],['2026-09-22T06:55',0.6,'L'],['2026-09-22T13:03',1.8,'H'],['2026-09-22T19:15',0.6,'L'],
+    ['2026-09-23T01:16',1.9,'H'],['2026-09-23T07:32',0.5,'L'],['2026-09-23T13:36',2.0,'H'],['2026-09-23T19:48',0.4,'L'],
+    ['2026-09-24T01:49',2.1,'H'],['2026-09-24T08:05',0.4,'L'],['2026-09-24T14:07',2.1,'H'],['2026-09-24T20:19',0.4,'L']
+  ]);
+  var EX_PDG=mk([
+    ['2026-09-21T06:07',0.8,'L'],['2026-09-21T12:26',1.7,'H'],['2026-09-21T18:39',0.8,'L'],
+    ['2026-09-22T00:41',1.7,'H'],['2026-09-22T06:58',0.6,'L'],['2026-09-22T13:08',1.8,'H'],['2026-09-22T19:18',0.6,'L'],
+    ['2026-09-23T01:21',1.9,'H'],['2026-09-23T07:35',0.5,'L'],['2026-09-23T13:41',2.0,'H'],['2026-09-23T19:51',0.4,'L'],
+    ['2026-09-24T01:54',2.1,'H'],['2026-09-24T08:08',0.3,'L'],['2026-09-24T14:12',2.1,'H'],['2026-09-24T20:22',0.3,'L']
+  ]);
+
+  function ymd(d){return d.toLocaleDateString('en-CA');}
+  function hm(d){return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
+  function dur(ms){var m=Math.round(ms/60000);var h=Math.floor(m/60);m=m%60;return h>0?(h+'h '+m+'min'):(m+'min');}
+  function hAt(EX,dt){var p=null,n=null;for(var i=0;i<EX.length-1;i++){if(EX[i].d<=dt&&dt<EX[i+1].d){p=EX[i];n=EX[i+1];break;}}if(!p||!n)return null;var ph=(dt-p.d)/(n.d-p.d);return p.h+(n.h-p.h)*(1-Math.cos(Math.PI*ph))/2;}
+
+  function graphSvg(EX,dstart,drawNow,sr,ss,HD){
+    var W=720,H=240,padL=40,padR=14,padT=24,padB=30,plW=W-padL-padR,plH=H-padT-padB;
+    var now=new Date();
+    var dend=new Date(dstart.getTime()+86400000);
+    var inDay=EX.filter(function(e){return e.d>=dstart&&e.d<dend;});
+    if(!inDay.length) return null;
+    function xOf(min){return padL+(min/1440)*plW;}
+    function yOf(h){return padT+(1-h/HD)*plH;}
+    function mins(dt){return (dt-dstart)/60000;}
+    var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Grafico de mare">';
+    s+='<rect x="'+padL+'" y="'+padT+'" width="'+(xOf(sr)-padL)+'" height="'+plH+'" fill="rgba(40,44,64,.07)"/>';
+    s+='<rect x="'+xOf(ss)+'" y="'+padT+'" width="'+(padL+plW-xOf(ss))+'" height="'+plH+'" fill="rgba(40,44,64,.07)"/>';
+    [0.5,1,1.5,2].forEach(function(hv){var y=yOf(hv);s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(padL+plW)+'" y2="'+y+'" stroke="#eee"/>';});
+    [0,1,2].forEach(function(hv){var y=yOf(hv);s+='<text x="'+(padL-6)+'" y="'+(y+4)+'" font-size="14" fill="#aaa" text-anchor="end">'+hv+'m</text>';});
+    for(var hh=0;hh<=24;hh+=3){var x=xOf(hh*60);s+='<line x1="'+x+'" y1="'+padT+'" x2="'+x+'" y2="'+(padT+plH)+'" stroke="#f3f3f3"/>';s+='<text x="'+x+'" y="'+(padT+plH+18)+'" font-size="14" fill="#999" text-anchor="middle">'+hh+'h</text>';}
+    var pts=[];for(var m=0;m<=1440;m+=15){var dt=new Date(dstart.getTime()+m*60000);var hv=hAt(EX,dt);if(hv!=null)pts.push([xOf(m),yOf(hv)]);}
+    if(pts.length){
+      var d='M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1);for(var i=1;i<pts.length;i++)d+=' L'+pts[i][0].toFixed(1)+' '+pts[i][1].toFixed(1);
+      var area=d+' L'+pts[pts.length-1][0].toFixed(1)+' '+yOf(0).toFixed(1)+' L'+pts[0][0].toFixed(1)+' '+yOf(0).toFixed(1)+' Z';
+      s+='<path d="'+area+'" fill="rgba(10,110,189,.12)"/>';
+      s+='<path d="'+d+'" fill="none" stroke="#0a6ebd" stroke-width="2.5"/>';
+    }
+    inDay.forEach(function(e){
+      var x=xOf(mins(e.d)),y=yOf(e.h),hh=e.d.getHours(),day=(hh>=5&&hh<17);
+      var lx=Math.max(padL+46,Math.min(padL+plW-46,x));
+      s+='<circle cx="'+x+'" cy="'+y+'" r="3.5" fill="'+(e.t==='L'?'#0a7d5a':'#0a6ebd')+'"/>';
+      if(e.t==='L'){
+        var rec=day?'⭐ piscinas naturais':'baixa (noite)';
+        s+='<text x="'+lx+'" y="'+(y-20)+'" font-size="17" font-weight="700" fill="#0a7d5a" text-anchor="middle">'+rec+'</text>';
+        s+='<text x="'+lx+'" y="'+(y-7)+'" font-size="15" fill="#555" text-anchor="middle">'+hm(e.d)+' · '+e.h.toFixed(2).replace('.',',')+'m</text>';
+      } else {
+        var rl=day?'🔵 banho de mar':'preamar';
+        s+='<text x="'+lx+'" y="'+(y+16)+'" font-size="16" font-weight="600" fill="#0a6ebd" text-anchor="middle">'+rl+'</text>';
+        s+='<text x="'+lx+'" y="'+(y+30)+'" font-size="15" fill="#555" text-anchor="middle">'+hm(e.d)+' · '+e.h.toFixed(2).replace('.',',')+'m</text>';
+      }
+    });
+    if(drawNow && now>=dstart && now<dend){
+      var xn=xOf(mins(now)),hvn=hAt(EX,now),yn=hvn!=null?yOf(hvn):padT;
+      s+='<line x1="'+xn+'" y1="'+padT+'" x2="'+xn+'" y2="'+(padT+plH)+'" stroke="#e8552d" stroke-width="2" stroke-dasharray="4 3"/>';
+      if(hvn!=null)s+='<circle cx="'+xn+'" cy="'+yn+'" r="5" fill="#e8552d"/>';
+      var nx=Math.max(padL+30,Math.min(padL+plW-30,xn));
+      s+='<text x="'+nx+'" y="'+(padT-8)+'" font-size="16" font-weight="700" fill="#e8552d" text-anchor="middle">agora '+hm(now)+'</text>';
+    }
+    s+='</svg>';
+    return s;
+  }
+
+  function dayLows(EX,dstart){var dend=new Date(dstart.getTime()+86400000);return EX.filter(function(e){return e.t==='L'&&e.d>=dstart&&e.d<dend&&e.d.getHours()>=5&&e.d.getHours()<17;});}
+
+  function buildDest(cfg){
+    var dstart=new Date(cfg.day+'T00:00');
+    var now=new Date();
+    var isToday=(ymd(now)===cfg.day);
+    // status
+    var lows=dayLows(cfg.EX,dstart);
+    var best=lows.length?lows.reduce(function(a,b){return b.h<a.h?b:a;}):null;
+    var st='';
+    if(isToday){
+      var hv=hAt(cfg.EX,now);
+      var prev=null,next=null;for(var i=0;i<cfg.EX.length-1;i++){if(cfg.EX[i].d<=now&&now<cfg.EX[i+1].d){prev=cfg.EX[i];next=cfg.EX[i+1];break;}}
+      if(hv!=null&&next){
+        var rising=(next.t==='H');
+        var low=hv<=0.9;
+        st='<div class="state">'+(low?'🟢 MARÉ BAIXA':(hv>=1.55?'🔵 MARÉ CHEIA':(rising?'🟠 SUBINDO':'🟡 DESCENDO')))+' · ~'+hv.toFixed(2).replace('.',',')+' m</div>'+
+           '<div class="rec">👉 '+(low?('<b>Bora as piscinas naturais de '+cfg.name+' agora</b> — maré recuada, momento ideal.'):('Piscinas melhores perto de <b>'+(best?hm(best.d):'—')+'</b>. Agora, curta praia/orla.'))+'</div>'+
+           '<div class="meta">Vira às <b>'+hm(next.d)+'</b> ('+(next.t==='H'?'preamar':'baixa-mar')+') — em '+dur(next.d-now)+'.</div>';
+      }
+    }
+    if(!st){
+      st='<div class="state">🏊 Piscinas naturais: melhor ~'+(best?hm(best.d):'—')+(best?(' ('+best.h.toFixed(2).replace('.',',')+' m)'):'')+'</div>'+
+         '<div class="rec">👉 No dia '+dstart.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})+', saia da praia <b>~1h antes</b> da baixa-mar. Manhã cedo.</div>'+
+         '<div class="meta">Abra esta página no dia lá para ver a maré ao vivo (linha laranja "agora").</div>';
+    }
+    document.getElementById(cfg.statusId).innerHTML=st;
+    // chips
+    var chips='<span class="chip hot">🏊 Melhor piscina: <b>'+(best?hm(best.d):'—')+'</b></span>'+
+              '<span class="chip">🌅 Sol <b>'+cfg.sun+'</b></span>'+
+              '<span class="chip">☀️ Sol forte 9h–15h — <b>protetor</b></span>';
+    document.getElementById(cfg.chipsId).innerHTML=chips;
+    // graph
+    var svg=graphSvg(cfg.EX,dstart,isToday,cfg.sr,cfg.ss,cfg.HD);
+    document.getElementById(cfg.graphId).innerHTML=
+      '<div class="gtitle">📈 Maré de '+dstart.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})+' — '+cfg.name+'</div>'+
+      (svg||'<div style="color:#999">sem dados</div>')+
+      '<div class="glegend">Área azul = maré · linha laranja = agora · cinza = noite · 🟢⭐ baixa-mar = piscinas naturais · 🔵 cheia = banho de mar.</div>';
+  }
+
+  document.getElementById('mar-md').innerHTML=marked.parse(document.getElementById('md-mar').textContent,{gfm:true});
+  document.getElementById('pdg-md').innerHTML=marked.parse(document.getElementById('md-pdg').textContent,{gfm:true});
+
+  function renderAll(){
+    buildDest({name:'Maragogi',day:'2026-09-22',EX:EX_MAR,statusId:'mar-status',chipsId:'mar-chips',graphId:'mar-graph',sun:'05:09–17:17',sr:309,ss:1037,HD:2.4});
+    buildDest({name:'Porto de Galinhas',day:'2026-09-23',EX:EX_PDG,statusId:'pdg-status',chipsId:'pdg-chips',graphId:'pdg-graph',sun:'05:07–17:16',sr:307,ss:1036,HD:2.4});
+  }
+  renderAll();
+  setInterval(renderAll,60000);
+</script>
+</body>
+</html>
