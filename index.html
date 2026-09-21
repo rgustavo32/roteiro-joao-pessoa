@@ -27,25 +27,35 @@
   li{margin:.25em 0}
   .updated{color:var(--muted);font-size:.85rem;margin-bottom:1em}
   img{max-width:100%}
-  /* tide widget */
-  #tidebox{background:#eaf4fb;border:1px solid #bcdff5;border-radius:12px;padding:14px 14px 6px;margin:0 0 18px}
-  #tidebox h2{border:none;color:var(--tide);margin:.1em 0 .5em;font-size:1.15rem;padding:0}
+  #tidebox{border-radius:14px;padding:16px 15px 8px;margin:0 0 20px;border:2px solid #bcdff5;background:#eaf4fb}
+  #tidebox.s-baixa{border-color:#9bd6b0;background:#e9f8ef}
+  #tidebox.s-cheia{border-color:#a9c9ef;background:#e7f0fc}
+  #tidebox.s-sobe{border-color:#f0d29a;background:#fdf3e0}
+  #tidebox.s-desce{border-color:#f0d29a;background:#fdf6e6}
+  #tidebox h2{border:none;margin:.1em 0 .5em;font-size:1.15rem;padding:0;color:var(--tide)}
+  #tnow{background:#fff;border-radius:11px;padding:12px 14px;margin-bottom:12px;border:1px solid rgba(0,0,0,.06)}
+  #tnow .state{font-size:1.35rem;font-weight:800;margin:.1em 0}
+  #tnow .lvl{font-size:.95rem;color:#333;margin:.2em 0}
+  #tnow .rec{margin-top:.5em;font-size:1rem;font-weight:600;line-height:1.4}
+  #tnow .meta{font-size:.83rem;color:var(--muted);margin-top:.5em}
+  #tnow .clock{font-variant-numeric:tabular-nums}
   .tcards{display:flex;gap:10px;flex-wrap:wrap}
-  .tcard{flex:1 1 240px;background:#fff;border:1px solid #cfe6f6;border-radius:10px;padding:10px 12px}
-  .tcard .lbl{font-weight:700;color:var(--tide);font-size:.9rem;text-transform:uppercase;letter-spacing:.03em}
-  .tcard .low{font-size:1.5rem;font-weight:800;margin:.15em 0}
-  .tcard .low small{font-size:.8rem;font-weight:600;color:var(--muted)}
-  .tcard .evs{font-size:.82rem;color:#333;margin-top:.3em}
-  .tcard .best{display:inline-block;margin-top:.4em;font-size:.78rem;background:#e6f7ee;color:#0a7d5a;border-radius:6px;padding:2px 7px;font-weight:700}
+  .tcard{flex:1 1 240px;background:#fff;border:1px solid #d7e6ef;border-radius:10px;padding:10px 12px}
+  .tcard .lbl{font-weight:700;color:var(--tide);font-size:.85rem;text-transform:uppercase;letter-spacing:.03em}
+  .tcard .low{font-size:1.3rem;font-weight:800;margin:.15em 0}
+  .tcard .low small{font-size:.78rem;font-weight:600;color:var(--muted)}
+  .tcard .evs{font-size:.8rem;color:#333;margin-top:.3em}
+  .tcard .best{display:inline-block;margin-top:.4em;font-size:.76rem;background:#e6f7ee;color:#0a7d5a;border-radius:6px;padding:2px 7px;font-weight:700}
   .tnote{font-size:.8rem;color:var(--muted);margin:.6em 2px 2px}
 </style>
 </head>
 <body>
 <div class="wrap">
 <div id="tidebox">
-  <h2>🌊 Marés hoje e amanhã — Cabedelo/JP</h2>
+  <h2>🌊 Situação da maré AGORA — Cabedelo / João Pessoa</h2>
+  <div id="tnow">Calculando…</div>
   <div id="tcards" class="tcards"></div>
-  <p class="tnote">Fonte: Marinha do Brasil (CHM) · Porto de Cabedelo. Baixa-mar = janela das piscinas naturais (sair de barco ~1h antes). Atualiza sozinho pela data do celular.</p>
+  <p class="tnote">Previsão oficial (Marinha do Brasil / Porto de Cabedelo), interpolada ao vivo. Recarregue a página p/ atualizar. Nível é estimativa entre as marés previstas.</p>
 </div>
 <div id="content">Carregando roteiro…</div>
 <p class="updated">Página pública · atualizada em 21/09/2026</p>
@@ -354,17 +364,30 @@ Dia de **descanso**, então roteiro leve, sem correria:
 </script>
 <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
 <script>
-  // --- roteiro markdown ---
-  var src = document.getElementById('md').textContent;
-  var c = document.getElementById('content');
-  c.innerHTML = marked.parse(src, {gfm:true, breaks:false});
-  c.querySelectorAll('table').forEach(function(t){
-    var d=document.createElement('div'); d.className='tablescroll';
-    t.parentNode.insertBefore(d,t); d.appendChild(t);
-  });
+  // ---------- roteiro ----------
+  var c=document.getElementById('content');
+  c.innerHTML=marked.parse(document.getElementById('md').textContent,{gfm:true,breaks:false});
+  c.querySelectorAll('table').forEach(function(t){var d=document.createElement('div');d.className='tablescroll';t.parentNode.insertBefore(d,t);d.appendChild(t);});
 
-  // --- tide widget (previsão fixa: Cabedelo/JP) ---
-  var TIDES = {
+  // ---------- marés (previsão fixa Cabedelo/JP) ----------
+  var EX=[
+    ['2026-09-21T00:17',1.84,'H'],['2026-09-21T07:01',0.84,'L'],['2026-09-21T13:16',1.83,'H'],['2026-09-21T19:12',0.87,'L'],
+    ['2026-09-22T01:19',1.99,'H'],['2026-09-22T07:46',0.67,'L'],['2026-09-22T13:59',1.99,'H'],['2026-09-22T19:53',0.71,'L'],
+    ['2026-09-23T02:04',2.15,'H'],['2026-09-23T08:21',0.52,'L'],['2026-09-23T14:34',2.14,'H'],['2026-09-23T20:27',0.55,'L'],
+    ['2026-09-24T02:24',2.30,'H'],['2026-09-24T08:35',0.40,'L'],['2026-09-24T14:42',2.30,'H'],['2026-09-24T20:49',0.40,'L'],
+    ['2026-09-25T02:57',2.40,'H'],['2026-09-25T09:08',0.30,'L'],['2026-09-25T15:13',2.40,'H'],['2026-09-25T21:20',0.30,'L'],
+    ['2026-09-26T03:30',2.50,'H'],['2026-09-26T09:41',0.30,'L'],['2026-09-26T15:45',2.50,'H'],['2026-09-26T21:53',0.20,'L'],
+    ['2026-09-27T04:29',2.57,'H'],['2026-09-27T10:32',0.18,'L'],['2026-09-27T16:47',2.47,'H'],['2026-09-27T22:51',0.18,'L'],
+    ['2026-09-28T05:04',2.56,'H'],['2026-09-28T11:06',0.21,'L'],['2026-09-28T17:23',2.46,'H'],['2026-09-28T23:25',0.21,'L'],
+    ['2026-09-29T05:44',2.49,'H'],['2026-09-29T11:44',0.30,'L'],['2026-09-29T18:02',2.40,'H'],
+    ['2026-09-30T00:06',0.29,'L'],['2026-09-30T06:25',2.36,'H'],['2026-09-30T12:21',0.44,'L'],['2026-09-30T18:46',2.29,'H'],
+    ['2026-10-01T00:55',0.43,'L'],['2026-10-01T07:16',2.18,'H'],['2026-10-01T13:08',0.62,'L'],['2026-10-01T19:36',2.15,'H']
+  ].map(function(e){return {d:new Date(e[0]),h:e[1],t:e[2]};});
+
+  var TIDES={
+    '2026-09-21':{low:'07:01',lowH:'0,84 m',ev:'Alta 00:17 · Baixa 07:01 · Alta 13:16 · Baixa 19:12',best:false},
+    '2026-09-22':{low:'07:46',lowH:'0,67 m',ev:'Alta 01:19 · Baixa 07:46 · Alta 13:59 · Baixa 19:53',best:false},
+    '2026-09-23':{low:'08:21',lowH:'0,52 m',ev:'Alta 02:04 · Baixa 08:21 · Alta 14:34 · Baixa 20:27',best:false},
     '2026-09-24':{low:'08:35',lowH:'0,4 m',ev:'Alta 02:24 · Baixa 08:35 · Alta 14:42 · Baixa 20:49',best:false},
     '2026-09-25':{low:'09:08',lowH:'0,3 m',ev:'Alta 02:57 · Baixa 09:08 · Alta 15:13 · Baixa 21:20',best:false},
     '2026-09-26':{low:'09:41',lowH:'0,3 m',ev:'Alta 03:30 · Baixa 09:41 · Alta 15:45 · Baixa 21:53',best:true},
@@ -374,25 +397,70 @@ Dia de **descanso**, então roteiro leve, sem correria:
     '2026-09-30':{low:'12:21',lowH:'0,44 m',ev:'Baixa 00:06 · Alta 06:25 · Baixa 12:21 · Alta 18:46',best:false},
     '2026-10-01':{low:'13:08',lowH:'0,62 m',ev:'Baixa 00:55 · Alta 07:16 · Baixa 13:08 · Alta 19:36',best:false}
   };
-  function ymd(d){ return d.toLocaleDateString('en-CA'); } // YYYY-MM-DD hora local
-  function ptLabel(d){ return d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}); }
-  function card(title,dateStr){
-    var t=TIDES[dateStr];
-    if(!t) return '<div class="tcard"><div class="lbl">'+title+'</div><div class="evs">Sem dado de maré para '+dateStr+' (fora do período 24/09–01/10). Veja a tábua completa no roteiro abaixo.</div></div>';
-    return '<div class="tcard"><div class="lbl">'+title+' · '+dateStr.split('-').reverse().slice(0,2).join('/')+'</div>'+
-           '<div class="low">Baixa-mar '+t.low+' <small>('+t.lowH+')</small></div>'+
-           '<div class="evs">'+t.ev+'</div>'+
-           (t.best?'<span class="best">⭐ Ótimo dia p/ piscinas naturais</span>':'')+'</div>';
+  function ymd(d){return d.toLocaleDateString('en-CA');}
+  function hm(d){return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
+  function dur(ms){var m=Math.round(ms/60000);var h=Math.floor(m/60);m=m%60;return h>0?(h+'h '+m+'min'):(m+'min');}
+  function nextLowAfter(t){for(var i=0;i<EX.length;i++){if(EX[i].t==='L'&&EX[i].d>t)return EX[i];}return null;}
+
+  function renderNow(){
+    var now=new Date();
+    var box=document.getElementById('tidebox');
+    var el=document.getElementById('tnow');
+    var prev=null,next=null;
+    for(var i=0;i<EX.length-1;i++){ if(EX[i].d<=now && now<EX[i+1].d){prev=EX[i];next=EX[i+1];break;} }
+    if(!prev||!next){
+      box.className='';
+      el.innerHTML='<div class="state">Fora do período</div><div class="lvl">A previsão ao vivo cobre 21/09 a 01/10/2026. Agora ('+hm(now)+', '+ymd(now)+') está fora dessa janela — veja a tábua completa na seção 🌊 1B abaixo.</div>';
+      return;
+    }
+    var span=next.d-prev.d, ph=(now-prev.d)/span;
+    var h=prev.h+(next.h-prev.h)*(1-Math.cos(Math.PI*ph))/2;
+    var rising=(next.t==='H');
+    var hour=now.getHours(), isDay=(hour>=6&&hour<17);
+    var state,cls,emoji,rec;
+    var nl=nextLowAfter(now);
+    var nlTxt=nl?(hm(nl.d)+(ymd(nl.d)!==ymd(now)?(' ('+nl.d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})+')'):'')):'—';
+    if(h<=0.9){
+      state='MARÉ BAIXA'; cls='s-baixa'; emoji='🟢';
+      rec = isDay
+        ? '<b>Bora piscinas naturais AGORA</b> — Picãozinho, Seixas, Areia Vermelha ou Caminho de Moisés. Melhor momento p/ snorkel e ver os peixinhos.'
+        : 'Maré recuada, mas já escuro — piscinas só de dia. Bom p/ caminhar na orla / quiosque.';
+    } else if(h>=1.7){
+      state='MARÉ CHEIA'; cls='s-cheia'; emoji='🔵';
+      rec='Piscinas cobertas agora. Ideal: <b>banho de mar</b>, passeio de barco no rio, pôr do sol do Jacaré, orla e quiosques. Próxima baixa-mar (piscinas) às <b>'+nlTxt+'</b>.';
+    } else if(rising){
+      state='ENCHENTE (subindo)'; cls='s-sobe'; emoji='🟠';
+      rec='Maré subindo — janela de piscina fechando. Aproveite <b>banho de mar / praia</b>. Próxima baixa boa p/ piscinas: <b>'+nlTxt+'</b>.';
+    } else {
+      state='VAZANTE (descendo)'; cls='s-desce'; emoji='🟡';
+      rec='Maré descendo — piscinas ficam boas perto de <b>'+hm(next.d)+'</b> (baixa-mar). Enquanto isso: orla, almoço beira-mar, compras.';
+    }
+    box.className=cls;
+    var arrow=rising?'subindo ↑':'descendo ↓';
+    el.innerHTML=
+      '<div class="state">'+emoji+' '+state+'</div>'+
+      '<div class="lvl">Nível estimado <b>~'+h.toFixed(2).replace('.',',')+' m</b> · '+arrow+' · agora <span class="clock">'+hm(now)+'</span></div>'+
+      '<div class="rec">👉 '+rec+'</div>'+
+      '<div class="meta">Última maré: '+(prev.t==='H'?'preamar':'baixa-mar')+' '+hm(prev.d)+' ('+prev.h.toFixed(2).replace('.',',')+' m). '+
+      'Vira às <b>'+hm(next.d)+'</b> ('+(next.t==='H'?'preamar':'baixa-mar')+', '+next.h.toFixed(2).replace('.',',')+' m) — em '+dur(next.d-now)+'. Até lá segue '+arrow+'.</div>';
   }
-  var now=new Date();
-  var today=ymd(now);
-  var tmr=new Date(now.getTime()+86400000); var tomorrow=ymd(tmr);
-  var html=card('Hoje',today)+card('Amanhã',tomorrow);
-  // se estiver totalmente fora do período, mostra próxima janela
-  if(!TIDES[today] && !TIDES[tomorrow]){
-    html='<div class="tcard"><div class="lbl">Período da viagem</div><div class="evs">Hoje ('+today+') está fora dos dias 24/09–01/10. A tábua completa dos seus dias está na seção <b>🌊 1B</b> do roteiro abaixo.</div></div>';
+
+  function renderCards(){
+    function card(title,dateStr){
+      var t=TIDES[dateStr];
+      if(!t) return '<div class="tcard"><div class="lbl">'+title+'</div><div class="evs">Sem dado p/ '+dateStr+'.</div></div>';
+      var dd=dateStr.split('-');
+      return '<div class="tcard"><div class="lbl">'+title+' · '+dd[2]+'/'+dd[1]+'</div>'+
+             '<div class="low">Baixa-mar '+t.low+' <small>('+t.lowH+')</small></div>'+
+             '<div class="evs">'+t.ev+'</div>'+
+             (t.best?'<span class="best">⭐ Ótimo dia p/ piscinas</span>':'')+'</div>';
+    }
+    var now=new Date(),today=ymd(now),tmr=ymd(new Date(now.getTime()+86400000));
+    document.getElementById('tcards').innerHTML=card('Hoje',today)+card('Amanhã',tmr);
   }
-  document.getElementById('tcards').innerHTML=html;
+
+  renderNow(); renderCards();
+  setInterval(function(){renderNow();renderCards();},60000);
 </script>
 </body>
 </html>
